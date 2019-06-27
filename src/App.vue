@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <h1>I Am Parent Component</h1>
+    <h4>Counter :{{countOnMe}}</h4>
     <Landing class="p-component" v-show="!isProcessing"/>
     <Processing
       v-show="isProcessing"
@@ -20,6 +21,8 @@
       type="text"
     >
     <button @click="submit()" id="btn-submit">SUBMIT</button>
+    <hr>
+    <button @click="counter()">CLICK ME TO Count</button>
   </div>
 </template>
 
@@ -39,7 +42,8 @@ export default {
       currentStatus: "",
       value: null,
       submitValue: null,
-      isProcessing: false
+      isProcessing: false,
+      countOnMe:0,
     };
   },
   methods: {
@@ -51,6 +55,10 @@ export default {
       this.isProcessing = true;
       this.submitValue = this.currentStatus;
       this.currentStatus = "";
+    },
+    counter()
+    {
+      this.countOnMe++;
     }
   }
 };
