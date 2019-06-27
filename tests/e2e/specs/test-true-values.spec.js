@@ -9,7 +9,7 @@ describe("test-true-values", () => {
 //, "true", "yes"
   trueTestValues.forEach(element => {
     it(`test input: ${element}`, () => {
-      cy.percySnapshot("Empty INPUT");
+      cy.percySnapshot();
       cy.get("#input-status")
         .type(element)
         .should("have.value", element);

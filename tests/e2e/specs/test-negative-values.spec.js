@@ -7,6 +7,7 @@ describe("test-negative-values", () => {
   
     negativeTestValues.forEach(element => {
       it(`test input: ${element}`, () => {
+        cy.percySnapshot();
         cy.get("#input-status")
           .type(element)
           .should("have.value", element);
@@ -17,7 +18,7 @@ describe("test-negative-values", () => {
           expect($h2).to.have.length(1);
           expect($h2).to.have.text("CURRENT STATUS: ERROR");
         });
-  
+        cy.percySnapshot();
         cy.get("#input-status").clear();
       });
     });
