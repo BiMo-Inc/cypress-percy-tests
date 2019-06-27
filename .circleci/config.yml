@@ -19,9 +19,16 @@ jobs:
         - node_modules
         key: v1-dependencies-{{ checksum "package.json" }}
     - run: npm run build
-    - run: npx percy snapshot _site
 workflows:
-  version: 2
-  workflow:
+  test_and_deploy:
     jobs:
-    - build
+      - checkout_code
+      - install_dependencies:
+          requires:
+            - checkout_code
+      - run_tests:
+          requires:
+            - install_dependencies
+      - percy/finalize_all:
+          requires:
+            - run_tests
