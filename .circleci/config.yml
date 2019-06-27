@@ -1,49 +1,50 @@
-# https://circleci.com/orbs/registry/licensing for details.
-version: "2.1"
-description: Workflow for running Percy builds in parallel. Your token will be read from $PERCY_TOKEN by default, but this
-  can be overridden using the `percy_token` parameter.
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2.1
 
-examples:
-  finalize_all_percy_builds:
-    description: Finalize all Percy builds
-    usage:
-      version: 2.1
-
-      orbs:
-        percy: percy/agent@1.0.0
-
-      workflows:
-        percy_finalize_all:
-          jobs:
-            - percy/finalize_all
-
-executors:
-  default:
+orbs:
+ percy: percy/agent@0.1.2
+ 
+jobs:
+  build:
     docker:
-      - image: cypress-percy-test
-working_directory: ~/repo
-commands:
-  finalize_all:
-    description: Finalize all Percy builds
-    parameters:
-      percy_token:
-        description: PERCY_TOKEN for your project. It is found on your project settings.
-        type: string
-        default: $PERCY_TOKEN
-    steps:
+      # specify the version you desire here
+      - image: circleci/node:7.10
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4
+
+    working_directory: ~/repo
+    run_tests:
+      parallelism: 3
+      steps:
+        - checkout
+          - attach_workspace:
+              at: .
+     - run: echo "your tests run here"
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
       - run: 
           name: install dependencies 
           command: |
-            PERCY_TOKEN=<< parameters.percy_token >> percy finalize --all
             npm install
-       - save_cache:
+            
+
+      - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }
-jobs:
-  finalize_all:
-    executor: default
-    steps:
+          key: v1-dependencies-{{ checksum "package.json" }}
+
       - run:
           name: run tests
           command: |
