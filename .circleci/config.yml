@@ -19,5 +19,7 @@ jobs:
         key: v1-dependencies-{{ checksum "package.json" }}
     - run: npx vue-cli-service build
 workflows:
+  version: 2
+  workflow:
     jobs:
     - build
