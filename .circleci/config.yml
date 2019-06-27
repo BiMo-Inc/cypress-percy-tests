@@ -13,9 +13,12 @@ jobs:
         keys:
         - v1-dependencies-{{ checksum "package.json" }}
         - v1-dependencies-
-    - run: npm install
+        - run: 
+          name: install dependencies 
+          command: |
+            npm install
+            npx vue-cli-service build
     - save_cache:
         paths:
         - node_modules
         key: v1-dependencies-{{ checksum "package.json" }}
-    - run: npm run build
