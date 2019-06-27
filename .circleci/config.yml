@@ -1,7 +1,15 @@
-version: 2
+version: 2.1
+
 orbs:
  percy: percy/agent@0.1.2
 
+jobs:
+ run_tests:
+   parallelism: 3
+   steps:
+     - attach_workspace:
+         at: ~/repo
+     - run: echo "your tests run here"
 jobs:
   build:
     docker:
@@ -13,9 +21,18 @@ jobs:
         keys:
         - v1-dependencies-{{ checksum "package.json" }}
         - v1-dependencies-
-        - run:npm install
+    - run: npm install
     - save_cache:
         paths:
         - node_modules
         key: v1-dependencies-{{ checksum "package.json" }}
- - run:  npx vue-cli-service build
+    - run: npx vue-cli-service build
+workflows:
+ test:
+   jobs:
+    - build
+    - run_tests
+    - percy/finalize_all:
+         requires:
+           - run_tests
+    
