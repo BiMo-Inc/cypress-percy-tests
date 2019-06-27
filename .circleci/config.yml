@@ -26,17 +26,19 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: npm install
-      - run: gem install percy-cli
+      - run: 
+          name: install dependencies 
+          command: |
+            npm install
+            gem install percy-cli
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # run tests!
-      - run: npm test
-
-      #run builds
-      - run: npm run build
-      - run: percy snapshot _site
+      - run:
+          name: run tests
+          command: |
+            npm run build
+            percy snapshot _site
