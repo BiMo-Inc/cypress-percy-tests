@@ -27,6 +27,7 @@ jobs:
             - v1-dependencies-
 
       - run: npm install
+      - run: gem install percy-cli
 
       - save_cache:
           paths:
@@ -35,3 +36,7 @@ jobs:
 
       # run tests!
       - run: npm test
+
+      #run builds
+      - run: npm run build
+      - run: percy snapshot _site
