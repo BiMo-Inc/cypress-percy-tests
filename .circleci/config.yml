@@ -14,6 +14,7 @@ jobs:
         - v1-dependencies-{{ checksum "package.json" }}
         - v1-dependencies-
     - run: npm install
+    - run: npm install @percy/agent
     - run: npm run test
     - run: npm run build
     - save_cache:
