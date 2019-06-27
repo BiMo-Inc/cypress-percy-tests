@@ -19,16 +19,3 @@ jobs:
         - node_modules
         key: v1-dependencies-{{ checksum "package.json" }}
     - run: npm run build
-workflows:
-  test_and_deploy:
-    jobs:
-      - checkout_code
-      - install_dependencies:
-          requires:
-            - checkout_code
-      - run_tests:
-          requires:
-            - install_dependencies
-      - percy/finalize_all:
-          requires:
-            - run_tests
