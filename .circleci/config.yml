@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-    - image: circleci/node:7.10
+    - image: circleci/node:10.15.3
     working_directory: ~/repo
     orbs:
       percy: percy/agent@0.1.2
@@ -13,11 +13,14 @@ jobs:
         - v1-dependencies-{{ checksum "package.json" }}
         - v1-dependencies-
     - run: npm install
+    - run: npm run build
     - save_cache:
         paths:
         - node_modules
+        - dist
+        - package.json
         key: v1-dependencies-{{ checksum "package.json" }}
-    - run: npm run build
+    - run: npm run test:e2e
 workflows:
   version: 2
   workflow:
