@@ -9,6 +9,7 @@ describe("test-false-values", () => {
 
   falseTestValues.forEach(element => {
     it(`test input: ${element}`, () => {
+      cy.percySnapshot();
       cy.get("#input-status")
         .type(element)
         .should("have.value", element);
@@ -19,7 +20,7 @@ describe("test-false-values", () => {
         expect($h2).to.have.length(1);
         expect($h2).to.have.text("CURRENT STATUS: false");
       });
-
+      cy.percySnapshot();
       cy.get("#input-status").clear();
     });
   });
