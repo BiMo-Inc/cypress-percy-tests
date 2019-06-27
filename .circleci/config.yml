@@ -1,5 +1,5 @@
 version: 2
-jobs:
+job:
   build:
     docker:
     - image: circleci/node:10.15.3
@@ -23,6 +23,7 @@ jobs:
         - dist
         - package.json
         key: v1-dependencies-{{ checksum "package.json" }}
+job:
   node_8:
     docker:
       - image: circleci/node:8-browsers
