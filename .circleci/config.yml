@@ -14,8 +14,6 @@ job:
         - v1-dependencies-{{ checksum "package.json" }}
         - v1-dependencies-
     - run: npm install 
-    - run: npm ci
-    - run: test:e2e
     - run: npm run build
     - save_cache:
         paths:
@@ -23,7 +21,6 @@ job:
         - dist
         - package.json
         key: v1-dependencies-{{ checksum "package.json" }}
-job:
   node_8:
     docker:
       - image: circleci/node:8-browsers
@@ -38,7 +35,7 @@ job:
 workflows:
   version: 2
   workflow:
-    jobs:
+    job:
     - node_8
     - node_10_with_percy
     - build

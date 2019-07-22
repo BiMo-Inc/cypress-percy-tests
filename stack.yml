@@ -1,0 +1,18 @@
+version: '3.7'
+services:
+  site:
+    image: dockerreg.brimoinc.co.za/sars-mapsite:$D_TAG
+    networks:
+      - proxy
+    deploy:
+      labels:
+        - com.df.serviceDomain=$DOMAIN
+        - com.df.servicePath=/
+        - com.df.port=8080
+        - com.df.notify=true
+        - com.df.distribute=true
+        - com.df.xForwardedProto=true
+        
+networks:
+  proxy:
+    external: true
