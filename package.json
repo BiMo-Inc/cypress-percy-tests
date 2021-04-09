@@ -5,17 +5,19 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "test": "npx percy exec -- cypress run",
     "test:e2e": "vue-cli-service test:e2e"
   },
   "dependencies": {
-    "@percy/cypress": "^1.0.9",
+    "@percy/cypress": "1.0.9",
     "core-js": "^2.6.5",
-    "vue": "^2.6.10",
-    "vue-resource": "^1.5.1",
-    "vue-resource-mocker": "^1.0.3"
+    "vue": "2.6.10",
+    "vue-resource": "1.5.1",
+    "vue-resource-mocker": "1.0.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.8.0",
+    "@percy/cypress": "^1.0.9",
     "@vue/cli-plugin-e2e-cypress": "^3.8.0",
     "@vue/cli-service": "^3.8.0",
     "node-sass": "^4.9.0",
